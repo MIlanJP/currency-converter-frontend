@@ -91,7 +91,7 @@ button.get-app-button {
     padding-left:10px;
     flex-direction:row;
     /* justify-content:space-between; */
-  width: 24.5vw;
+  width: 30vw;
   position: relative;
   height: 40px;
   border: 1px solid black;
@@ -133,13 +133,14 @@ input.enter-input-to {
 display:flex;
 flex-direction:row;
 align-items:center;
+padding-left: 10px;;
   height: 40px;
-  width: 31.25vw;
+  width: 30vw;
   position: relative;
-  outline: none;
+  border: 1px solid;
 }
 
-@media screen and (min-width: 1000px) {
+/* @media screen and (min-width: 1000px) {
   select.from-input-field {
     width: 25.5vw;
     position: relative;
@@ -177,7 +178,7 @@ align-items:center;
     transition: 1s;
     top: 60px;
   }
-}
+} */
 
 .from-toggle{
     position: absolute;
@@ -278,10 +279,12 @@ align-items:center;
 }
 .selected-abbr{
     margin-right:10px;
+    transition:.5s;
 }
 
 .to-selected-abbr{
     margin-right:10px;
+    transition:.5s;
 }
 
 
@@ -294,7 +297,24 @@ align-items:center;
 
 .selected-abbr:hover{
     font-size: 1.5rem;
-   background-color: rgb(238, 255, 0);
+   background-color: rgb(0, 0, 0);
    transition:.5s;
+   color:white;
    cursor: pointer;
+   border-radius: 25px;
+
+}
+
+
+.to-selected-abbr:hover{
+    font-size: 1.5rem;
+   background-color: rgb(0, 0, 0);
+   transition:.5s;
+   color:white;
+   cursor: pointer;
+   border-radius: 25px;
+}
+
+.to-selected-abbr{
+    margin-right:10px;
 }
