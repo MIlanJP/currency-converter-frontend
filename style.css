@@ -130,6 +130,9 @@ input.enter-input-to {
 }
 
 .to-input-field {
+display:flex;
+flex-direction:row;
+align-items:center;
   height: 40px;
   width: 31.25vw;
   position: relative;
@@ -186,7 +189,7 @@ input.enter-input-to {
 
 .to-toggle{
      position: absolute;
-    float: right;
+     top:10px;
     right:10px;
     z-index: 10;
     color: black;
@@ -195,15 +198,17 @@ input.enter-input-to {
 .to-scroll{
     background-color:white;
   border: 1px solid;
-    /* display:none; */
+    display:none;
     flex-direction: column;
     position: absolute;
     top:40px;
-    width: 97.5%;
+    width: 99.5%;
     height: 300px;;
     z-index: 10;
     overflow: scroll;
 }
+
+
 
 .from-scroll{
     background-color:white;
@@ -216,12 +221,12 @@ input.enter-input-to {
     z-index: 10;
     overflow: scroll;
 }
-.from-scroll::-webkit-scrollbar {
+.from-scroll::-webkit-scrollbar,.to-scroll::-webkit-scrollbar {
     display: none;
   }
 
 .from-scroll-element{
-    border: 1px solid;
+    box-shadow: 0px 0px 5px 0px rgb(169, 169, 226);
     display:flex;
     font-size: 1rem;;
     flex-direction:row;
@@ -231,6 +236,33 @@ input.enter-input-to {
     align-items:center;
     transition:1s;
 }
+
+.to-scroll-element{
+    box-shadow: 0px 0px 5px 0px rgb(169, 169, 226);
+    display:flex;
+    font-size: 1rem;;
+    flex-direction:row;
+    padding-top: 5px;;
+    padding-bottom: 5px;;
+    justify-content: space-between;
+    align-items:center;
+    transition:1s;
+}
+
+.to-scroll-element:Hover{
+    border: 1px solid;
+    display:flex;
+    flex-direction:row;
+    justify-content: space-between;
+    height:60px;
+    font-size: 1.1rem;;
+    align-items:center;
+    height:70px;
+    background-color:rgb(143, 163, 255);
+    transition:.3s;
+    cursor: pointer;
+}
+
 .from-scroll-element:Hover{
     border: 1px solid;
     display:flex;
@@ -248,8 +280,21 @@ input.enter-input-to {
     margin-right:10px;
 }
 
+.to-selected-abbr{
+    margin-right:10px;
+}
+
+
 .count-abbr{
     font-size: .75rem;
     padding-right:10px;
     font-weight: 100;
+}
+
+
+.selected-abbr:hover{
+    font-size: 1.5rem;
+   background-color: rgb(238, 255, 0);
+   transition:.5s;
+   cursor: pointer;
 }

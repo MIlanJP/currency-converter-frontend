@@ -36,12 +36,13 @@ const currencyNames={
     EUR:"European Euro"
 }
 
+
+
 console.log(currencyNames)
 console.log(staticCurrency.length)
 
 
-// 
-// console.log(fromSelect.namedItem);
+
 
 
 staticCurrency.forEach(country=>{
@@ -55,46 +56,68 @@ staticCurrency.forEach(country=>{
   countABBR.className="count-abbr"
   countABBR.innerText=country;
   scrollbar.appendChild(countABBR)
-    document.getElementsByClassName("from-scroll")[0].appendChild(scrollbar)
+  document.getElementsByClassName("from-scroll")[0].appendChild(scrollbar)
+
+  let scrollbar1 = document.createElement('div');
+  scrollbar1.className='to-scroll-element'
+let countryName1=document.createElement('div');
+countryName1.className="country-name"
+countryName1.innerText=currencyNames[country]
+scrollbar1.appendChild(countryName1)
+let countABBR1=document.createElement('div');
+countABBR1.className="count-abbr"
+countABBR1.innerText=country;
+scrollbar1.appendChild(countABBR1)
+    document.getElementsByClassName("to-scroll")[0].appendChild(scrollbar1)
 }
 )
-// console.log( document.getElementsByClassName("from-scroll")[0])
 
 let fromSelect=document.getElementsByClassName('from-scroll-element')
-// console.log(fromSelect.length);
 
 
-// document.querySelectorAll(".from-scroll-element").forEach(item=>{
-//     item.addEventListener("click",event=>{
-        
-//     })
-// })
 
+const AddEvtListener=(classname,to,abbr,curr)=>{
 for(let i=0;i<fromSelect.length;i++){
-    let element=document.getElementsByClassName("from-scroll-element")[i]
-    
-    // console.log(document.getElementsByClassName("from-scroll-element")[i].innerText)
-   document.getElementsByClassName('from-scroll-element')[i].addEventListener("click", function (){
+    let element=document.getElementsByClassName(classname)[i]
+        
+document.getElementsByClassName(classname)[i].addEventListener("click", function (){
        let selectedabbr=element.firstElementChild.textContent;
        let selectedCurr=element.firstElementChild.nextSibling.textContent;
 
-        document.getElementsByClassName("selected-abbr")[0].textContent=selectedCurr
-        document.getElementsByClassName("selected-curr")[0].textContent= selectedabbr
-        let fromScroll = document.getElementsByClassName('from-scroll')[0].style.display="none";
+        document.getElementsByClassName(abbr)[0].textContent=selectedCurr
+        document.getElementsByClassName(curr)[0].textContent= selectedabbr
+        let fromScroll = document.getElementsByClassName(to)[0].style.display="none";
    })
 }
+}
 
+AddEvtListener("from-scroll-element",'from-scroll',"selected-abbr","selected-curr")
+AddEvtListener("to-scroll-element",'to-scroll',"to-selected-abbr","to-selected-curr")
 document.getElementsByClassName('from-input-field')[0].addEventListener("click", function(){
     toggleScroll('from-scroll')
 })
 document.getElementsByClassName('from-toggle')[0].addEventListener("click", function(){
     let fromScroll = document.getElementsByClassName('from-scroll')[0];
     if(fromScroll.style.display===""||fromScroll.style.display==="none"){
-        fromScroll.style.display="flex";
+        fromScroll.style.className="fas fa-caret-down from-toggle"
     }else{
-        fromScroll.style.display="none";
+        fromScroll.style.className="fas fa-sort-up from-toggle"
     }
 })
+
+document.getElementsByClassName('to-input-field')[0].addEventListener("click", function(){
+    toggleScroll('to-scroll')
+})
+
+document.getElementsByClassName('to-toggle')[0].addEventListener("click", function(){
+    let fromScroll = document.getElementsByClassName('from-scroll')[0];
+    if(fromScroll.style.display===""||fromScroll.style.display==="none"){
+        fromScroll.style.className="fas fa-caret-down to-toggle"
+    }else{
+        fromScroll.style.className="fas fa-sort-up to-toggle"
+    }
+})
+
 
 const toggleScroll=(classname)=>{
     let fromScroll = document.getElementsByClassName(classname)[0];
