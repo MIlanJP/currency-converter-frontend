@@ -10,8 +10,8 @@ body {
 
 label {
   font-family: "Open Sans", sans-serif;
-  font-weight: 10;
-  font-size: 0.75rem;
+  font-weight: 100;
+  font-size: 0.95rem;
 }
 
 .maincontainer {
@@ -359,6 +359,7 @@ input.enter-input-to {
   color: rgba(124, 123, 123, 0.596);
   position: absolute;
   right: 0px;
+  top:3px;
   margin-right: 15px;
   float: right;
   z-index: 30;

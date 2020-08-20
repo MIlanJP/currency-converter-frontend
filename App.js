@@ -120,6 +120,7 @@ return json;
   KRW: "South Korean Won",
   MYR: "Malaysian Ringgit",
   EUR: "European Euro",
+  SEK:"Swedish Krona"
 };
 
 
@@ -215,7 +216,7 @@ const toggleScroll = (classname,searchbar) => {
   }
 };
 
-document.getElementsByClassName('enter-input-from')[0].addEventListener('change', function(){
+document.getElementsByClassName('enter-input-from')[0].addEventListener('input', function(){
 callFrom();
 })
 
@@ -226,7 +227,7 @@ function callFrom(){
  fetchCallForConversion(fromm,value,to,'enter-input-to');
 }
 
-document.getElementsByClassName('enter-input-to')[0].addEventListener('change', function(){
+document.getElementsByClassName('enter-input-to')[0].addEventListener('input', function(){
     let to=  document.getElementsByClassName('selected-abbr')[0].innerText
      let fromm= document.getElementsByClassName('to-selected-abbr')[0].innerText
   let value=document.getElementsByClassName('enter-input-to')[0].value
