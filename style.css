@@ -1,14 +1,21 @@
 @import url("https://fonts.googleapis.com/css2?family=Alata&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;1,100;1,200;1,300;1,400&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;1,100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
 body {
   font-family: "Alata", sans-serif;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.109);
 }
 
+label{
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 10;
+  font-size: .75rem;
+}
+
 .maincontainer {
-  width: calc(100% - 1%);
+  width: calc(100%);
   height: 90vh;
   background-color: white;
   box-shadow: 0px 0px 10px 0px rgb(131, 131, 131);
@@ -100,7 +107,7 @@ button.get-app-button {
 
 
 input.enter-input-from {
-  width: 30vw;
+  width: 30.25vw;
   position: relative;
   outline: none;
   height: 200px;
@@ -117,7 +124,7 @@ input::-webkit-inner-spin-button{
 }
 input.enter-input-to {
 
-  width: 30vw;
+  width: 30.25vw;
   position: relative;
   height: 200px;
   font-family: "Jost", sans-serif;
@@ -195,13 +202,14 @@ padding-left: 10px;;
 }
 
 .to-scroll{
+  box-shadow: 0px 0px 5px 0px rgb(0, 0, 0);
     background-color:white;
     display:none;
     flex-direction: column;
     position: absolute;
-    top:40px;
-    width: 99.5%;
-    height: 300px;;
+    top:100px;
+    width: 100%;
+    height: 240px;;
     z-index: 10;
     overflow: scroll;
 }
@@ -209,13 +217,14 @@ padding-left: 10px;;
 
 
 .from-scroll{
+  box-shadow: 0px 0px 5px 0px rgb(0, 0, 0);
     background-color:white;
     display:none;
     flex-direction: column;
     position: absolute;
-    top:45px;
-    width: 97.5%;
-    height: 300px;;
+    top:100px;
+    width: 100%;
+    height: 240px;;
     z-index: 10;
     overflow: scroll;
 }
@@ -226,22 +235,55 @@ padding-left: 10px;;
 .from-scroll-element{
     box-shadow: 0px 0px 5px 0px rgb(169, 169, 226);
     display:flex;
-    font-size: 1rem;;
+    font-size: 1.2rem;;
     flex-direction:row;
-    padding-top: 5px;;
-    padding-bottom: 5px;;
+    padding-top: 7px;;
+    padding-bottom: 7px;;
+    padding-left: 10px;
     justify-content: space-between;
     align-items:center;
     transition:1s;
 }
 
+.to-scroll-search,.from-scroll-search{
+  position: absolute;
+  display:none;
+  padding-right: 15px;;
+  height:30px;
+  width:90%;
+  top:70px;
+  z-index: 20;;
+  flex-direction:row;
+
+  justify-content:space-evenly;
+}
+
+.fa-search{
+position: relative;
+margin-right: 10px;;
+padding-top:5px;
+}
+
+.search-to,.search-from{
+  width:80%;
+  position:relative;
+  top:-5px;
+  border-radius: 5px;;
+  border:rgba(51, 15, 15, 0.267);
+  outline: none;
+  z-index: 5;
+  font-family: 'Open Sans', sans-serif;
+  cursor: pointer;
+}
+
 .to-scroll-element{
     box-shadow: 0px 0px 5px 0px rgb(169, 169, 226);
     display:flex;
-    font-size: 1rem;;
+    font-size: 1.2rem;;
     flex-direction:row;
-    padding-top: 5px;;
-    padding-bottom: 5px;;
+    padding-top: 7px;;
+    padding-left: 10px;
+    padding-bottom: 7px;;
     justify-content: space-between;
     align-items:center;
     transition:1s;
@@ -253,7 +295,7 @@ padding-left: 10px;;
     flex-direction:row;
     justify-content: space-between;
     height:60px;
-    font-size: 1.1rem;;
+    font-size: 1.3rem;;
     align-items:center;
     height:70px;
     background-color:rgb(143, 163, 255);
@@ -262,17 +304,17 @@ padding-left: 10px;;
 }
 
 .from-scroll-element:Hover{
-    border: 1px solid;
+  background-color:rgb(143, 163, 255);
     display:flex;
     flex-direction:row;
     justify-content: space-between;
     height:60px;
-    font-size: 1.1rem;;
+    font-size: 1.3rem;
     align-items:center;
-    height:70px;
-    background-color:rgb(143, 163, 255);
     transition:.3s;
     cursor: pointer;
+    outline: none;
+    border:none;
 }
 .selected-abbr{
     margin-right:10px;
@@ -288,7 +330,7 @@ padding-left: 10px;;
 .count-abbr{
     font-size: .75rem;
     padding-right:10px;
-    font-weight: 100;
+    font-weight: 150;
 }
 
 

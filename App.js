@@ -1,6 +1,7 @@
 const baseURL = "http://127.0.0.1:5000/api/currconv/";
-let staticCurrency = [];
-const staticCurrency1 = [
+
+// static data to load when fetch fails
+const staticCurrency = [
   "INR",
   "INR",
   "INR",
@@ -42,20 +43,25 @@ let response=  await  fetch(`${baseURL}getcurrencylist`,
 {
     headers: { Accept: "application/json" },
   }).catch(function(err) {
-    loadScroll(staticCurrency1)
+    // Loading static data when fetch operation fails 
+    loadScroll(staticCurrency)
     AddEvtListener(
         "from-scroll-element",
         "from-scroll",
         "selected-abbr",
-        "selected-curr"
+        "selected-curr",
+        'to-scroll'
       );
       AddEvtListener(
         "to-scroll-element",
         "to-scroll",
         "to-selected-abbr",
-        "to-selected-curr"
+        "to-selected-curr",
+        'from-scroll'
       );
  });
+
+//  Load dynamic data if fetch operation is sucessfull
  const json=await response.json().then((res) => {; 
  loadScroll(res.list);
  AddEvtListener(
@@ -78,7 +84,9 @@ return json;
 
 
  getList();
-const currencyNames = {
+
+//  Currency Names with ABBR
+ const currencyNames = {
   CAD: "Canadian Dollar",
   HKD: "Hong Kong Dollar",
   ISK: "Ice landic Krona",
@@ -117,7 +125,7 @@ const currencyNames = {
 
 
 function loadScroll(list){
-
+  // Setting default Data
     document.getElementsByClassName('selected-abbr')[0].innerText='INR';
     document.getElementsByClassName('selected-curr')[0].innerText=currencyNames['INR'];
     document.getElementsByClassName('to-selected-abbr')[0].innerText='INR';
@@ -165,72 +173,45 @@ function  AddEvtListener(classname, to, abbr, curr,scroll){
         document.getElementsByClassName(abbr)[0].textContent = selectedCurr;
         document.getElementsByClassName(curr)[0].textContent = selectedabbr;
         callFrom();
-        let fromScroll = (document.getElementsByClassName(to)[0].style.display =
-          "none");
+       document.getElementsByClassName(to)[0].style.display = "none";
+    document.getElementsByClassName('from-scroll-search')[0].style.display='none'
+
           document.getElementsByClassName(scroll)[0].style.display='none'
+    document.getElementsByClassName('to-scroll-search')[0].style.display='none'
+
       });
   }
 };
 
-// AddEvtListener(
-//   "from-scroll-element",
-//   "from-scroll",
-//   "selected-abbr",
-//   "selected-curr"
-// );
-// AddEvtListener(
-//   "to-scroll-element",
-//   "to-scroll",
-//   "to-selected-abbr",
-//   "to-selected-curr"
-// );
 document
   .getElementsByClassName("from-input-field")[0]
   .addEventListener("click", function () {
-    toggleScroll("from-scroll");
+    toggleScroll("from-scroll",'from-scroll-search');
     document.getElementsByClassName('to-scroll')[0].style.display='none'
+    document.getElementsByClassName('to-scroll-search')[0].style.display='none'
+
   });
-// document
-//   .getElementsByClassName("from-toggle")[0]
-//   .addEventListener("click", function () {
-//     let fromScroll = document.getElementsByClassName("from-scroll")[0];
-//     if (
-//       fromScroll.style.display === "" ||
-//       fromScroll.style.display === "none"
-//     ) {
-//       fromScroll.style.className = "fas fa-caret-down from-toggle";
-//     } else {
-//       fromScroll.style.className = "fas fa-sort-up from-toggle";
-//     }
-//   });
+
 
 document
   .getElementsByClassName("to-input-field")[0]
   .addEventListener("click", function () {
-    toggleScroll("to-scroll");
+    toggleScroll("to-scroll",'to-scroll-search');
     document.getElementsByClassName('from-scroll')[0].style.display='none'
+    document.getElementsByClassName('from-scroll-search')[0].style.display='none'
   });
 
-// document
-//   .getElementsByClassName("to-toggle")[0]
-//   .addEventListener("click", function () {
-//     let fromScroll = document.getElementsByClassName("from-scroll")[0];
-//     if (
-//       fromScroll.style.display === "" ||
-//       fromScroll.style.display === "none"
-//     ) {
-//       fromScroll.style.className = "fas fa-caret-down to-toggle";
-//     } else {
-//       fromScroll.style.className = "fas fa-sort-up to-toggle";
-//     }
-//   });
 
-const toggleScroll = (classname) => {
+
+const toggleScroll = (classname,searchbar) => {
   let fromScroll = document.getElementsByClassName(classname)[0];
+  let searchBar = document.getElementsByClassName(searchbar)[0];
   if (fromScroll.style.display === "" || fromScroll.style.display === "none") {
     fromScroll.style.display = "flex";
+    searchBar.style.display = "flex";
   } else {
     fromScroll.style.display = "none";
+    searchBar.style.display = "none";
   }
 };
 
@@ -252,15 +233,6 @@ document.getElementsByClassName('enter-input-to')[0].addEventListener('change', 
   fetchCallForConversion(fromm,value,to,'enter-input-from');
   })
 
-  document.getElementsByClassName('selected-abbr')[0].addEventListener('change',function(){
-      let triggerChange=new Event('change')
-      document.getElementsByClassName('enter-input-from')[0].dispatchEvent(triggerChange)
-  })
-
-  document.getElementsByClassName('to-selected-abbr')[0].addEventListener('change',function(){
-    let triggerChange=new Event('change')
-    document.getElementsByClassName('enter-input-from')[0].dispatchEvent(triggerChange)
-})
 
 function fetchCallForConversion(fromm,value,to,classname){
     fetch(`${baseURL}${fromm}/${value}/${to}`).then(
@@ -272,4 +244,40 @@ function fetchCallForConversion(fromm,value,to,classname){
     ).catch(err=>{
         console.log(err)
     })
+}
+
+document.getElementsByClassName('search-to')[0].addEventListener('input',
+ function(){
+   searchFeature('search-to','.to-scroll-element')
+ })
+
+ document.getElementsByClassName('search-from')[0].addEventListener('input',
+ function(){
+   searchFeature('search-from','.from-scroll-element')
+ })
+
+
+
+function searchFeature(search,scrollElement){
+  let element=document.getElementsByClassName(search)[0];
+  console.log(element.value)
+  let elements=document.querySelectorAll(scrollElement);
+  if(element.value!==""){
+    console.log(element.innerText)
+    elements.forEach(elem=>{
+      if(elem.innerText.toUpperCase().includes(element.value.toUpperCase())){
+       
+        elem.style.display = "flex"
+      }else{
+        console.log(elem.innerText.includes(element.innerText))
+        elem.style.display ='none'
+      }
+    })
+  }else{
+    elements.forEach(elem=>{
+      if(elem.innerText.toUpperCase().includes(element.value.toUpperCase())){  
+        elem.style.display = "flex"
+      }
+    })
+  }
 }

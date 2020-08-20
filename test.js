@@ -1,10 +1,3 @@
-const a= async ()=>{
-await    setTimeout(()=>{
-        console.log("hey")
-    },2000)
-}
-
-a();
-
-console.log("Hello")
+let k="go"
+console.log("cargo".includes(k))
 
