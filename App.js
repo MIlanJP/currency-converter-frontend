@@ -281,3 +281,12 @@ function searchFeature(search,scrollElement){
     })
   }
 }
+
+document.getElementsByClassName('clear-from-search')[0].addEventListener('click', function(){
+document.getElementsByClassName('search-from')[0].value='';
+searchFeature('search-from','.from-scroll-element')
+})
+document.getElementsByClassName('clear-to-search')[0].addEventListener('click', function(){
+  document.getElementsByClassName('search-to')[0].value='';
+  searchFeature('search-to','.to-scroll-element')
+  })
