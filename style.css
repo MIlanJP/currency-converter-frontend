@@ -107,8 +107,7 @@ input.enter-input-from {
   font-family: "Jost", sans-serif;
   font-weight: 150;
   font-size: 6rem;
-  color: transparent;
-  text-shadow: 0 0 0 #000000;
+
 }
 
 input::-webkit-outer-spin-button,
@@ -117,8 +116,7 @@ input::-webkit-inner-spin-button{
     margin: 0;
 }
 input.enter-input-to {
-    color: transparent;
-    text-shadow: 0 0 0 #000000;
+
   width: 30vw;
   position: relative;
   height: 200px;
@@ -198,7 +196,6 @@ padding-left: 10px;;
 
 .to-scroll{
     background-color:white;
-  border: 1px solid;
     display:none;
     flex-direction: column;
     position: absolute;
