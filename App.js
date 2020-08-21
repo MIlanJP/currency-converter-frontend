@@ -127,10 +127,11 @@ return json;
 
 function loadScroll(list){
   // Setting default Data
-    document.getElementsByClassName('selected-abbr')[0].innerText='INR';
-    document.getElementsByClassName('selected-curr')[0].innerText=currencyNames['INR'];
-    document.getElementsByClassName('to-selected-abbr')[0].innerText='INR';
- document.getElementsByClassName('to-selected-curr')[0].innerText=currencyNames['INR'];
+    $('.selected-abbr').text('INR')
+    $('.selected-curr').text(currencyNames['INR']);
+    $('.to-selected-abbr').text('INR')
+    $('.to-selected-curr').text(currencyNames['INR']);
+
 
 list.forEach((country) => {
   let scrollbar = document.createElement("div");
@@ -184,35 +185,30 @@ function  AddEvtListener(classname, to, abbr, curr,scroll){
   }
 };
 
-document
-  .getElementsByClassName("from-input-field")[0]
-  .addEventListener("click", function () {
+
+
+  $(".from-input-field").click(function () {
     toggleScroll("from-scroll",'from-scroll-search');
-    document.getElementsByClassName('to-scroll')[0].style.display='none'
-    document.getElementsByClassName('to-scroll-search')[0].style.display='none'
+    $('.to-scroll').hide();
+    $('.to-scroll-search').hide()
+  })
 
-  });
-
-
-document
-  .getElementsByClassName("to-input-field")[0]
-  .addEventListener("click", function () {
-    toggleScroll("to-scroll",'to-scroll-search');
-    document.getElementsByClassName('from-scroll')[0].style.display='none'
-    document.getElementsByClassName('from-scroll-search')[0].style.display='none'
-  });
-
+  
+$(".to-input-field").click(function () {
+  toggleScroll("to-scroll",'to-scroll-search');
+  $('.from-scroll').hide();
+  $('.from-scroll-search').hide()
+})
 
 
 const toggleScroll = (classname,searchbar) => {
-  let fromScroll = document.getElementsByClassName(classname)[0];
-  let searchBar = document.getElementsByClassName(searchbar)[0];
-  if (fromScroll.style.display === "" || fromScroll.style.display === "none") {
-    fromScroll.style.display = "flex";
-    searchBar.style.display = "flex";
-  } else {
-    fromScroll.style.display = "none";
-    searchBar.style.display = "none";
+  if(classname==="from-scroll"&&searchbar==='from-scroll-search'){
+      $(`.${classname}`).toggle(350);
+      $(`.${searchbar}`).toggle(350);
+
+  }else{
+    $(`.${classname}`).toggle(350);
+    $(`.${searchbar}`).toggle(350);
   }
 };
 
@@ -224,6 +220,9 @@ function callFrom(){
     let fromm=  document.getElementsByClassName('selected-abbr')[0].innerText
     let to= document.getElementsByClassName('to-selected-abbr')[0].innerText
  let value=document.getElementsByClassName('enter-input-from')[0].value
+ if($('.enter-input-from').val()<0){
+  $('.enter-input-from').val(0)
+}
  fetchCallForConversion(fromm,value,to,'enter-input-to');
 }
 
@@ -231,11 +230,15 @@ document.getElementsByClassName('enter-input-to')[0].addEventListener('input', f
     let to=  document.getElementsByClassName('selected-abbr')[0].innerText
      let fromm= document.getElementsByClassName('to-selected-abbr')[0].innerText
   let value=document.getElementsByClassName('enter-input-to')[0].value
+  if($('.enter-input-to').val()<0){
+    $('.enter-input-to').val(0)
+  }
   fetchCallForConversion(fromm,value,to,'enter-input-from');
   })
 
 
 function fetchCallForConversion(fromm,value,to,classname){
+  if(value>=0){
     fetch(`${baseURL}${fromm}/${value}/${to}`).then(
         res=>{
             res.json().then(result=>{
@@ -245,7 +248,7 @@ function fetchCallForConversion(fromm,value,to,classname){
     ).catch(err=>{
         console.log(err)
     })
-}
+}}
 
 document.getElementsByClassName('search-to')[0].addEventListener('input',
  function(){
@@ -260,34 +263,38 @@ document.getElementsByClassName('search-to')[0].addEventListener('input',
 
 
 function searchFeature(search,scrollElement){
-  let element=document.getElementsByClassName(search)[0];
-  console.log(element.value)
+  let element=$(`.${search}`);
+
   let elements=document.querySelectorAll(scrollElement);
-  if(element.value!==""){
-    console.log(element.innerText)
+  if(element.val()!==""){
     elements.forEach(elem=>{
-      if(elem.innerText.toUpperCase().includes(element.value.toUpperCase())){
-       
+      if(elem.innerText.toUpperCase().includes(element.val().toUpperCase())){
         elem.style.display = "flex"
       }else{
-        console.log(elem.innerText.includes(element.innerText))
         elem.style.display ='none'
       }
     })
   }else{
     elements.forEach(elem=>{
-      if(elem.innerText.toUpperCase().includes(element.value.toUpperCase())){  
+      if(elem.innerText.toUpperCase().includes(element.val().toUpperCase())){  
         elem.style.display = "flex"
       }
     })
   }
 }
 
-document.getElementsByClassName('clear-from-search')[0].addEventListener('click', function(){
-document.getElementsByClassName('search-from')[0].value='';
-searchFeature('search-from','.from-scroll-element')
-})
-document.getElementsByClassName('clear-to-search')[0].addEventListener('click', function(){
-  document.getElementsByClassName('search-to')[0].value='';
-  searchFeature('search-to','.to-scroll-element')
+$(document).ready(function(){
+  $('.clear-from-search').click(function(){
+    $('.search-from').val('');
+    searchFeature('search-from','.from-scroll-element')
   })
+})
+
+$(document).ready(function(){
+  $('.clear-to-search').click(function(){
+    console.log($('.search-to').val(),"printing")
+    $('.search-to').val('');
+    searchFeature('search-to','.to-scroll-element')
+  })
+})
+
