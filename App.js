@@ -291,3 +291,13 @@ document.getElementsByClassName('clear-to-search')[0].addEventListener('click', 
   document.getElementsByClassName('search-to')[0].value='';
   searchFeature('search-to','.to-scroll-element')
   })
+
+document.getElementsByClassName('enter-input-from')[0].addEventListener('click', function(){
+  document.getElementsByClassName('to-scroll')[0].style.display='none'
+  document.getElementsByClassName('to-scroll-search')[0].style.display='none'
+})
+
+document.getElementsByClassName('enter-input-to')[0].addEventListener('click', function(){
+  document.getElementsByClassName('from-scroll')[0].style.display='none'
+  document.getElementsByClassName('from-scroll-search')[0].style.display='none'
+})
