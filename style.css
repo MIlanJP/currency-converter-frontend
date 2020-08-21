@@ -71,10 +71,13 @@ button.get-app-button {
 }
 
 .from-container {
+  margin-right:4px; ;
   display: flex;
   flex-direction: column;
   position: relative;
   top: 0%;
+  margin-right:4px; 
+  margin-left:2px;
 }
 
 .to-container {
@@ -95,18 +98,36 @@ button.get-app-button {
   display: flex;
   padding-left: 10px;
   flex-direction: row;
-  /* justify-content:space-between; */
+  border-bottom-color: rgb(230, 230, 230);
+  transition: border-bottom-color 4s;
+  transition-timing-function: linear;
+  border-bottom-style: groove ;
   width: 30vw;
   position: relative;
   height: 40px;
-  border: 1px solid black;
   align-items: center;
+}
+
+.to-input-field {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-left: 10px;
+  border-bottom-color: rgb(230, 230, 230);
+  transition: border-bottom-color 4s;
+  transform-style: flat;
+  transition-timing-function: linear;
+  border-bottom-style: groove ;
+  height: 40px;
+  width: 30vw;
+  position: relative;
 }
 
 input.enter-input-from {
   width: 30.25vw;
   position: relative;
   outline: none;
+  border: none;
   height: 200px;
   font-family: "Jost", sans-serif;
   font-weight: 150;
@@ -125,19 +146,11 @@ input.enter-input-to {
   font-family: "Jost", sans-serif;
   font-weight: 150;
   outline: none;
+  border: none;
   font-size: 6rem;
 }
 
-.to-input-field {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding-left: 10px;
-  height: 40px;
-  width: 30vw;
-  position: relative;
-  border: 1px solid;
-}
+
 /* 
 @media screen and (min-width: 1000px) {
   select.from-input-field {
@@ -209,7 +222,7 @@ input.enter-input-to {
   display: none;
   flex-direction: column;
   position: absolute;
-  top: 100px;
+  top: 105px;
   width: 100%;
   height: 240px;
   z-index: 10;
@@ -222,7 +235,7 @@ input.enter-input-to {
   display: none;
   flex-direction: column;
   position: absolute;
-  top: 100px;
+  top: 105px;
   width: 100%;
   height: 240px;
   z-index: 10;
@@ -253,7 +266,7 @@ input.enter-input-to {
   padding-right: 15px;
   height: 30px;
   width: 95%;
-  top: 70px;
+  top: 75px;
   z-index: 20;
   flex-direction: row;
   justify-content: space-evenly;

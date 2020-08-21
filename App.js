@@ -1,7 +1,7 @@
 const baseURL = "http://127.0.0.1:5000/api/currconv/";
 
 // static data to load when fetch fails
-const staticCurrency = [
+const staticCurrency1 = [
   "INR",
   "INR",
   "INR",
@@ -37,56 +37,54 @@ const staticCurrency = [
   "EUR",
 ];
 
-
-const getList =async () => {
-let response=  await  fetch(`${baseURL}getcurrencylist`,
-{
+const getList = async () => {
+  let response = await fetch(`${baseURL}getcurrencylist`, {
     headers: { Accept: "application/json" },
-  }).catch(function(err) {
-    // Loading static data when fetch operation fails 
-    loadScroll(staticCurrency)
+  }).catch(function (err) {
+    // Loading static data when fetch operation fails
+    loadScroll(staticCurrency, currencyNames1);
     AddEvtListener(
-        "from-scroll-element",
-        "from-scroll",
-        "selected-abbr",
-        "selected-curr",
-        'to-scroll'
-      );
-      AddEvtListener(
-        "to-scroll-element",
-        "to-scroll",
-        "to-selected-abbr",
-        "to-selected-curr",
-        'from-scroll'
-      );
- });
+      "from-scroll-element",
+      "from-scroll",
+      "selected-abbr",
+      "selected-curr",
+      "to-scroll"
+    );
+    AddEvtListener(
+      "to-scroll-element",
+      "to-scroll",
+      "to-selected-abbr",
+      "to-selected-curr",
+      "from-scroll"
+    );
+  });
 
-//  Load dynamic data if fetch operation is sucessfull
- const json=await response.json().then((res) => {; 
- loadScroll(res.list);
- AddEvtListener(
-    "from-scroll-element",
-    "from-scroll",
-    "selected-abbr",
-    "selected-curr",
-    'to-scroll'
-  );
-  AddEvtListener(
-    "to-scroll-element",
-    "to-scroll",
-    "to-selected-abbr",
-    "to-selected-curr",
-    'from-scroll'
-  );
- return res.list;})
-return json;
+  //  Load dynamic data if fetch operation is sucessfull
+  const json = await response.json().then((res) => {
+    loadScroll(res.list, res.country);
+    AddEvtListener(
+      "from-scroll-element",
+      "from-scroll",
+      "selected-abbr",
+      "selected-curr",
+      "to-scroll"
+    );
+    AddEvtListener(
+      "to-scroll-element",
+      "to-scroll",
+      "to-selected-abbr",
+      "to-selected-curr",
+      "from-scroll"
+    );
+    return res.list;
+  });
+  return json;
 };
 
-
- getList();
+getList();
 
 //  Currency Names with ABBR
- const currencyNames = {
+const currencyNames1 = {
   CAD: "Canadian Dollar",
   HKD: "Hong Kong Dollar",
   ISK: "Ice landic Krona",
@@ -120,48 +118,48 @@ return json;
   KRW: "South Korean Won",
   MYR: "Malaysian Ringgit",
   EUR: "European Euro",
-  SEK:"Swedish Krona"
+  SEK: "Swedish Krona",
 };
 
-
-
-function loadScroll(list){
+function loadScroll(list, currencyNames) {
   // Setting default Data
-    document.getElementsByClassName('selected-abbr')[0].innerText='INR';
-    document.getElementsByClassName('selected-curr')[0].innerText=currencyNames['INR'];
-    document.getElementsByClassName('to-selected-abbr')[0].innerText='INR';
- document.getElementsByClassName('to-selected-curr')[0].innerText=currencyNames['INR'];
+  document.getElementsByClassName("selected-abbr")[0].innerText = "INR";
+  document.getElementsByClassName("selected-curr")[0].innerText =
+    currencyNames["INR"];
+  document.getElementsByClassName("to-selected-abbr")[0].innerText = "INR";
+  document.getElementsByClassName("to-selected-curr")[0].innerText =
+    currencyNames["INR"];
 
-list.forEach((country) => {
-  let scrollbar = document.createElement("div");
-  scrollbar.className = "from-scroll-element";
-  let countryName = document.createElement("div");
-  countryName.className = "country-name";
-  countryName.innerText = currencyNames[country];
-  scrollbar.appendChild(countryName);
-  let countABBR = document.createElement("div");
-  countABBR.className = "count-abbr";
-  countABBR.innerText = country;
-  scrollbar.appendChild(countABBR);
-  document.getElementsByClassName("from-scroll")[0].appendChild(scrollbar);
+  list.forEach((country) => {
+    let scrollbar = document.createElement("div");
+    scrollbar.className = "from-scroll-element";
+    let countryName = document.createElement("div");
+    countryName.className = "country-name";
+    countryName.innerText = currencyNames[country];
+    scrollbar.appendChild(countryName);
+    let countABBR = document.createElement("div");
+    countABBR.className = "count-abbr";
+    countABBR.innerText = country;
+    scrollbar.appendChild(countABBR);
+    document.getElementsByClassName("from-scroll")[0].appendChild(scrollbar);
 
-  let scrollbar1 = document.createElement("div");
-  scrollbar1.className = "to-scroll-element";
-  let countryName1 = document.createElement("div");
-  countryName1.className = "country-name";
-  countryName1.innerText = currencyNames[country];
-  scrollbar1.appendChild(countryName1);
-  let countABBR1 = document.createElement("div");
-  countABBR1.className = "count-abbr";
-  countABBR1.innerText = country;
-  scrollbar1.appendChild(countABBR1);
-  document.getElementsByClassName("to-scroll")[0].appendChild(scrollbar1);
-});
+    let scrollbar1 = document.createElement("div");
+    scrollbar1.className = "to-scroll-element";
+    let countryName1 = document.createElement("div");
+    countryName1.className = "country-name";
+    countryName1.innerText = currencyNames[country];
+    scrollbar1.appendChild(countryName1);
+    let countABBR1 = document.createElement("div");
+    countABBR1.className = "count-abbr";
+    countABBR1.innerText = country;
+    scrollbar1.appendChild(countABBR1);
+    document.getElementsByClassName("to-scroll")[0].appendChild(scrollbar1);
+  });
 }
 
 let fromSelect = document.getElementsByClassName("from-scroll-element");
 
-function  AddEvtListener(classname, to, abbr, curr,scroll){
+function AddEvtListener(classname, to, abbr, curr, scroll) {
   for (let i = 0; i < fromSelect.length; i++) {
     let element = document.getElementsByClassName(classname)[i];
 
@@ -174,37 +172,57 @@ function  AddEvtListener(classname, to, abbr, curr,scroll){
         document.getElementsByClassName(abbr)[0].textContent = selectedCurr;
         document.getElementsByClassName(curr)[0].textContent = selectedabbr;
         callFrom();
-       document.getElementsByClassName(to)[0].style.display = "none";
-    document.getElementsByClassName('from-scroll-search')[0].style.display='none'
+        document.getElementsByClassName(to)[0].style.display = "none";
+        document.getElementsByClassName("from-scroll-search")[0].style.display =
+          "none";
 
-          document.getElementsByClassName(scroll)[0].style.display='none'
-    document.getElementsByClassName('to-scroll-search')[0].style.display='none'
-
+        document.getElementsByClassName(scroll)[0].style.display = "none";
+        document.getElementsByClassName("to-scroll-search")[0].style.display =
+          "none";
+        if (classname[0] === "f") {
+          document.getElementsByClassName(
+            "from-input-field"
+          )[0].style.borderBottomColor = "blue";
+          setTimeout(() => {
+            document.getElementsByClassName(
+              "from-input-field"
+            )[0].style.borderBottomColor = "rgb(230, 230, 230)";
+          }, 2000);
+        }
+        console.log(classname[0])
+        if (classname[0] === "t") {
+          document.getElementsByClassName(
+            "to-input-field"
+          )[0].style.borderBottomColor = "blue";
+          setTimeout(() => {
+            document.getElementsByClassName(
+              "to-input-field"
+            )[0].style.borderBottomColor = "rgb(230, 230, 230)";
+          },2000);
+        }
       });
   }
-};
+}
 
 document
   .getElementsByClassName("from-input-field")[0]
   .addEventListener("click", function () {
-    toggleScroll("from-scroll",'from-scroll-search');
-    document.getElementsByClassName('to-scroll')[0].style.display='none'
-    document.getElementsByClassName('to-scroll-search')[0].style.display='none'
-
+    toggleScroll("from-scroll", "from-scroll-search");
+    document.getElementsByClassName("to-scroll")[0].style.display = "none";
+    document.getElementsByClassName("to-scroll-search")[0].style.display =
+      "none";
   });
-
 
 document
   .getElementsByClassName("to-input-field")[0]
   .addEventListener("click", function () {
-    toggleScroll("to-scroll",'to-scroll-search');
-    document.getElementsByClassName('from-scroll')[0].style.display='none'
-    document.getElementsByClassName('from-scroll-search')[0].style.display='none'
+    toggleScroll("to-scroll", "to-scroll-search");
+    document.getElementsByClassName("from-scroll")[0].style.display = "none";
+    document.getElementsByClassName("from-scroll-search")[0].style.display =
+      "none";
   });
 
-
-
-const toggleScroll = (classname,searchbar) => {
+const toggleScroll = (classname, searchbar) => {
   let fromScroll = document.getElementsByClassName(classname)[0];
   let searchBar = document.getElementsByClassName(searchbar)[0];
   if (fromScroll.style.display === "" || fromScroll.style.display === "none") {
@@ -216,88 +234,101 @@ const toggleScroll = (classname,searchbar) => {
   }
 };
 
-document.getElementsByClassName('enter-input-from')[0].addEventListener('input', function(){
-callFrom();
-})
+document
+  .getElementsByClassName("enter-input-from")[0]
+  .addEventListener("input", function () {
+    callFrom();
+  });
 
-function callFrom(){
-    let fromm=  document.getElementsByClassName('selected-abbr')[0].innerText
-    let to= document.getElementsByClassName('to-selected-abbr')[0].innerText
- let value=document.getElementsByClassName('enter-input-from')[0].value
- fetchCallForConversion(fromm,value,to,'enter-input-to');
+function callFrom() {
+  let fromm = document.getElementsByClassName("selected-abbr")[0].innerText;
+  let to = document.getElementsByClassName("to-selected-abbr")[0].innerText;
+  let value = document.getElementsByClassName("enter-input-from")[0].value;
+  fetchCallForConversion(fromm, value, to, "enter-input-to");
 }
 
-document.getElementsByClassName('enter-input-to')[0].addEventListener('input', function(){
-    let to=  document.getElementsByClassName('selected-abbr')[0].innerText
-     let fromm= document.getElementsByClassName('to-selected-abbr')[0].innerText
-  let value=document.getElementsByClassName('enter-input-to')[0].value
-  fetchCallForConversion(fromm,value,to,'enter-input-from');
-  })
+document
+  .getElementsByClassName("enter-input-to")[0]
+  .addEventListener("input", function () {
+    let to = document.getElementsByClassName("selected-abbr")[0].innerText;
+    let fromm = document.getElementsByClassName("to-selected-abbr")[0]
+      .innerText;
+    let value = document.getElementsByClassName("enter-input-to")[0].value;
+    fetchCallForConversion(fromm, value, to, "enter-input-from");
+  });
 
-
-function fetchCallForConversion(fromm,value,to,classname){
-    fetch(`${baseURL}${fromm}/${value}/${to}`).then(
-        res=>{
-            res.json().then(result=>{
-                document.getElementsByClassName(classname)[0].value=result.value;
-            })
-        }
-    ).catch(err=>{
-        console.log(err)
+function fetchCallForConversion(fromm, value, to, classname) {
+  fetch(`${baseURL}${fromm}/${value}/${to}`)
+    .then((res) => {
+      res.json().then((result) => {
+        document.getElementsByClassName(classname)[0].value = result.value;
+      });
     })
+    .catch((err) => {
+      console.log(err);
+    });
 }
 
-document.getElementsByClassName('search-to')[0].addEventListener('input',
- function(){
-   searchFeature('search-to','.to-scroll-element')
- })
+document
+  .getElementsByClassName("search-to")[0]
+  .addEventListener("input", function () {
+    searchFeature("search-to", ".to-scroll-element");
+  });
 
- document.getElementsByClassName('search-from')[0].addEventListener('input',
- function(){
-   searchFeature('search-from','.from-scroll-element')
- })
+document
+  .getElementsByClassName("search-from")[0]
+  .addEventListener("input", function () {
+    searchFeature("search-from", ".from-scroll-element");
+  });
 
-
-
-function searchFeature(search,scrollElement){
-  let element=document.getElementsByClassName(search)[0];
-  console.log(element.value)
-  let elements=document.querySelectorAll(scrollElement);
-  if(element.value!==""){
-    console.log(element.innerText)
-    elements.forEach(elem=>{
-      if(elem.innerText.toUpperCase().includes(element.value.toUpperCase())){
-       
-        elem.style.display = "flex"
-      }else{
-        console.log(elem.innerText.includes(element.innerText))
-        elem.style.display ='none'
+function searchFeature(search, scrollElement) {
+  let element = document.getElementsByClassName(search)[0];
+  console.log(element.value);
+  let elements = document.querySelectorAll(scrollElement);
+  if (element.value !== "") {
+    console.log(element.innerText);
+    elements.forEach((elem) => {
+      if (elem.innerText.toUpperCase().includes(element.value.toUpperCase())) {
+        elem.style.display = "flex";
+      } else {
+        console.log(elem.innerText.includes(element.innerText));
+        elem.style.display = "none";
       }
-    })
-  }else{
-    elements.forEach(elem=>{
-      if(elem.innerText.toUpperCase().includes(element.value.toUpperCase())){  
-        elem.style.display = "flex"
+    });
+  } else {
+    elements.forEach((elem) => {
+      if (elem.innerText.toUpperCase().includes(element.value.toUpperCase())) {
+        elem.style.display = "flex";
       }
-    })
+    });
   }
 }
 
-document.getElementsByClassName('clear-from-search')[0].addEventListener('click', function(){
-document.getElementsByClassName('search-from')[0].value='';
-searchFeature('search-from','.from-scroll-element')
-})
-document.getElementsByClassName('clear-to-search')[0].addEventListener('click', function(){
-  document.getElementsByClassName('search-to')[0].value='';
-  searchFeature('search-to','.to-scroll-element')
-  })
+document
+  .getElementsByClassName("clear-from-search")[0]
+  .addEventListener("click", function () {
+    document.getElementsByClassName("search-from")[0].value = "";
+    searchFeature("search-from", ".from-scroll-element");
+  });
+document
+  .getElementsByClassName("clear-to-search")[0]
+  .addEventListener("click", function () {
+    document.getElementsByClassName("search-to")[0].value = "";
+    searchFeature("search-to", ".to-scroll-element");
+  });
 
-document.getElementsByClassName('enter-input-from')[0].addEventListener('click', function(){
-  document.getElementsByClassName('to-scroll')[0].style.display='none'
-  document.getElementsByClassName('to-scroll-search')[0].style.display='none'
-})
+document
+  .getElementsByClassName("enter-input-from")[0]
+  .addEventListener("click", function () {
+    document.getElementsByClassName("to-scroll")[0].style.display = "none";
+    document.getElementsByClassName("to-scroll-search")[0].style.display =
+      "none";
+  });
 
-document.getElementsByClassName('enter-input-to')[0].addEventListener('click', function(){
-  document.getElementsByClassName('from-scroll')[0].style.display='none'
-  document.getElementsByClassName('from-scroll-search')[0].style.display='none'
-})
+document
+  .getElementsByClassName("enter-input-to")[0]
+  .addEventListener("click", function () {
+    document.getElementsByClassName("from-scroll")[0].style.display = "none";
+    document.getElementsByClassName("from-scroll-search")[0].style.display =
+      "none";
+  });
