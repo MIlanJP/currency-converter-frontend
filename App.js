@@ -1,5 +1,6 @@
 const baseURL = "http://127.0.0.1:5000/api/currconv/";
 
+let currencyNames=[];
 // static data to load when fetch fails
 const staticCurrency = [
   "INR",
@@ -44,7 +45,7 @@ let response=  await  fetch(`${baseURL}getcurrencylist`,
     headers: { Accept: "application/json" },
   }).catch(function(err) {
     // Loading static data when fetch operation fails 
-    loadScroll(staticCurrency)
+    loadScroll(staticCurrency,currencyNames1)
     AddEvtListener(
         "from-scroll-element",
         "from-scroll",
@@ -63,7 +64,7 @@ let response=  await  fetch(`${baseURL}getcurrencylist`,
 
 //  Load dynamic data if fetch operation is sucessfull
  const json=await response.json().then((res) => {; 
- loadScroll(res.list);
+ loadScroll(res.list,res.country);
  AddEvtListener(
     "from-scroll-element",
     "from-scroll",
@@ -86,7 +87,7 @@ return json;
  getList();
 
 //  Currency Names with ABBR
- const currencyNames = {
+ const currencyNames1 = {
   CAD: "Canadian Dollar",
   HKD: "Hong Kong Dollar",
   ISK: "Ice landic Krona",
@@ -125,7 +126,7 @@ return json;
 
 
 
-function loadScroll(list){
+function loadScroll(list,currencyNames){
   // Setting default Data
     $('.selected-abbr').text('INR')
     $('.selected-curr').text(currencyNames['INR']);
