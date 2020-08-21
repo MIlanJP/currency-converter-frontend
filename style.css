@@ -278,6 +278,15 @@ input.enter-input-to {
   font-family: "Open Sans", sans-serif;
 }
 
+@media screen and (max-width: 730px) {
+  .search-to,
+.search-from {
+  position: relative;
+  top:-25px;
+  left:25px;
+}
+}
+
 .to-scroll-element {
   box-shadow: 0px 0px 5px 0px rgb(169, 169, 226);
   display: flex;

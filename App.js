@@ -172,14 +172,14 @@ function  AddEvtListener(classname, to, abbr, curr,scroll){
         let selectedabbr = element.firstElementChild.textContent;
         let selectedCurr = element.firstElementChild.nextSibling.textContent;
 
-        document.getElementsByClassName(abbr)[0].textContent = selectedCurr;
-        document.getElementsByClassName(curr)[0].textContent = selectedabbr;
+        $(`.${abbr}`).text(selectedCurr);
+        $(`.${curr}`).text(selectedabbr);
         callFrom();
-       document.getElementsByClassName(to)[0].style.display = "none";
-    document.getElementsByClassName('from-scroll-search')[0].style.display='none'
+      $(`.${to}`).hide()
+   $('.from-scroll-search').hide()
 
-          document.getElementsByClassName(scroll)[0].style.display='none'
-    document.getElementsByClassName('to-scroll-search')[0].style.display='none'
+         $(`.${scroll}`).hide()
+   $('.to-scroll-search').hide()
 
       });
   }
@@ -212,24 +212,24 @@ const toggleScroll = (classname,searchbar) => {
   }
 };
 
-document.getElementsByClassName('enter-input-from')[0].addEventListener('input', function(){
+$('.enter-input-from').change(function(){
 callFrom();
 })
 
 function callFrom(){
-    let fromm=  document.getElementsByClassName('selected-abbr')[0].innerText
-    let to= document.getElementsByClassName('to-selected-abbr')[0].innerText
- let value=document.getElementsByClassName('enter-input-from')[0].value
+    let fromm=  $('.selected-abbr').text()
+    let to= $('.to-selected-abbr').text()
+ let value=$('.enter-input-from').val()
  if($('.enter-input-from').val()<0){
   $('.enter-input-from').val(0)
 }
  fetchCallForConversion(fromm,value,to,'enter-input-to');
 }
 
-document.getElementsByClassName('enter-input-to')[0].addEventListener('input', function(){
-    let to=  document.getElementsByClassName('selected-abbr')[0].innerText
-     let fromm= document.getElementsByClassName('to-selected-abbr')[0].innerText
-  let value=document.getElementsByClassName('enter-input-to')[0].value
+$('.enter-input-to').change(function(){
+    let to=  $('.selected-abbr').text()
+     let fromm= $('.to-selected-abbr').text()
+  let value=$('.enter-input-to').val()
   if($('.enter-input-to').val()<0){
     $('.enter-input-to').val(0)
   }
