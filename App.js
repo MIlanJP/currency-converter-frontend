@@ -298,3 +298,12 @@ $(document).ready(function(){
   })
 })
 
+$('.enter-input-from').click( function(){
+  $('.to-scroll').hide()
+  $('.to-scroll-search').hide()
+})
+
+$('.enter-input-to').click( function(){
+  $('.from-scroll').hide()
+  $('.from-scroll-search').hide()
+})
